@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+{% block mainmenu %}
+<ul>
+    {% for a in actions %}
+    <li>
+        {{ a }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock mainmenu %}
+
+{% block content %}
+{% endblock %}
+</body>
+</html>

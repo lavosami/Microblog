@@ -10,6 +10,5 @@ App's pages:
 """
 urlpatterns = [
     path('', index, name='home'),
-    path('genre/<int:genre_id>/', genre),
-    re_path(r'^music_year/(?P<year>[0-9]{4})/', music_year)
+    path('about/', about, name='about')
 ]

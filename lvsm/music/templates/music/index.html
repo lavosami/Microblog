@@ -1,0 +1,14 @@
+{% extends 'music/base.html' %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<ul>
+    {% for p in posts %}
+    <li>
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.content }}</p>
+        <hr>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

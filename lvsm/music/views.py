@@ -1,10 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 
+from music.models import Music
+
+actions = ["About a site", "Create new post", "Feedback", "Sign In"]
+
 
 # home (main) page
 def index(request):
-    return HttpResponse("<h1>Music page</h1>")
+    posts = Music.objects.all()
+    return render(request, 'music/index.html', {'title': 'Music blog', 'actions': actions, 'posts': posts})
+
+
+def about(request):
+    return render(request, 'music/about.html', {'title': 'About a site', 'actions': actions})
 
 
 # genre page
