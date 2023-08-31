@@ -20,6 +20,6 @@ def music_year(request, year):
     return HttpResponse(f"<h1>Era of music</h1><p>{year}</p>")
 
 
-# errors handler function
+# error 404 handler function
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1>Something went wrong, try again later</h1>")
