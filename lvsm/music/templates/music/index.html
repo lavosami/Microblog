@@ -1,14 +1,15 @@
 {% extends 'music/base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-<ul>
-    {% for p in posts %}
-    <li>
-        <h3>{{ p.title }}</h3>
-        <p>{{ p.content }}</p>
-        <hr>
-    </li>
-    {% endfor %}
+<ul class="list-articles">
+	{% for p in posts %}
+			<li><h2>{{p.title}}</h2>
+	{% autoescape on %}
+	{{p.content|linebreaks|truncatewords:50}}
+	{% endautoescape %}
+			<div class="clear"></div>
+			<p class="link-read-post"><a href="#">Read the post</a></p>
+			</li>
+	{% endfor %}
 </ul>
 {% endblock %}
