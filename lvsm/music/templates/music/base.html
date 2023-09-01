@@ -14,12 +14,12 @@
 {% block mainmenu %}
 		<div class="header">
 			<ul id="mainmenu" class="mainmenu">
-			<li class="logo"><a href="#"><div class="logo"></div></a></li>
-{% for a in actions %}
+			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
+{% for m in menu %}
 	{% if not forloop.last %}
-			<li><a href="#">{{a.title}}</a></li>
+			<li><a href="{% url m.url_path %}">{{m.title}}</a></li>
 	{% else %}
-			<li class="last"><a href="#">{{a.title}}</a></li>
+			<li class="last"><a href="{% url m.url_path %}">{{m.title}}</a></li>
 	{% endif %}
 {% endfor %}
 			</ul>
@@ -37,7 +37,7 @@
 		<li><a href="#">Hip-Hop</a></li>
 		<li><a href="#">Electronic</a></li>
 		<li class="share">
-		<p>Our channel</p>
+		<p>Our telegram</p>
 		<a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists" target="_blank" rel="nofollow"></a>
 		</li>
 	</ul>

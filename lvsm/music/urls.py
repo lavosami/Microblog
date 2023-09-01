@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from .views import *
 
@@ -10,5 +10,9 @@ App's pages:
 """
 urlpatterns = [
     path('', index, name='home'),
-    path('about/', about, name='about')
+    path('about/', about, name='about'),
+    path('new_post/', new_post, name='new_post'),
+    path('feedback/', feedback, name='feedback'),
+    path('login/', login, name='login'),
+    path('post/<int:post_id>/', show_post, name='post')
 ]

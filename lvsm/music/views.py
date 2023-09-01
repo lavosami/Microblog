@@ -3,17 +3,27 @@ from django.http import HttpResponse, HttpResponseNotFound
 
 from music.models import Music
 
-actions = ["About a site", "Create new post", "Feedback", "Sign In"]
+menu = [
+    {'title': "About a site", 'url_path': "about"},
+    {'title': "Create a post", 'url_path': "new_post"},
+    {'title': "Feedback", 'url_path': "feedback"},
+    {'title': "Sign In", 'url_path': "login"}
+    ]
 
 
 # home (main) page
 def index(request):
     posts = Music.objects.all()
-    return render(request, 'music/index.html', {'title': 'Music blog', 'actions': actions, 'posts': posts})
+    args = {
+        'title': 'Music blog',
+        'menu': menu,
+        'posts': posts
+    }
+    return render(request, 'music/index.html', context=args)
 
 
 def about(request):
-    return render(request, 'music/about.html', {'title': 'About a site', 'actions': actions})
+    return render(request, 'music/about.html', {'title': 'About a site', 'actions': menu})
 
 
 # genre page
@@ -27,6 +37,22 @@ def music_year(request, year):
     if int(year) < 1985:
         return redirect('home', permanent=False)
     return HttpResponse(f"<h1>Era of music</h1><p>{year}</p>")
+
+
+def new_post(request):
+    return HttpResponse("New Post page")
+
+
+def feedback(request):
+    return HttpResponse("Feedback page")
+
+
+def login(request):
+    return HttpResponse("Login page")
+
+
+def show_post(request, post_id):
+    return HttpResponse(f"Post {post_id}")
 
 
 # error 404 handler function
