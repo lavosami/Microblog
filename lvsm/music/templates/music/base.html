@@ -32,10 +32,19 @@
 <tr>
 	<td valign="top" class="left-chapters">
 	<ul id="leftchapters">
-		<li class="selected">All genres</li>
-		<li><a href="#">Rock</a></li>
-		<li><a href="#">Hip-Hop</a></li>
-		<li><a href="#">Electronic</a></li>
+		{% if genre_selected == 0 %}
+			<li class="selected">All genres</li>
+		{% else %}
+			<li><a href="{% url 'home' %}">All genres</a></li>
+		{% endif %}
+
+		{% for g in genres %}
+			{% if g.pk == genre_selected %}
+				<li class="selected">{{g.name}}</li>
+			{% else %}
+				<li><a href="{{ g.get_absolute_url }}">{{g.name}}</a></li>
+			{% endif %}
+		{% endfor %}
 		<li class="share">
 		<p>Our telegram</p>
 		<a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists" target="_blank" rel="nofollow"></a>

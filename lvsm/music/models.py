@@ -18,9 +18,20 @@ class Music(models.Model):
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True)
+    genre = models.ForeignKey('Genre', on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_id': self.pk})
+
+
+class Genre(models.Model):
+    name = models.CharField(max_length=255, db_index=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('genre', kwargs={'genre_id': self.pk})

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 
-from music.models import Music
+from music.models import Music, Genre
 
 menu = [
     {'title': "About a site", 'url_path': "about"},
@@ -14,10 +14,14 @@ menu = [
 # home (main) page
 def index(request):
     posts = Music.objects.all()
+    genres = Genre.objects.all()
+
     args = {
         'title': 'Music blog',
         'menu': menu,
-        'posts': posts
+        'posts': posts,
+        'genres': genres,
+        'genre_selected': 0
     }
     return render(request, 'music/index.html', context=args)
 
@@ -53,6 +57,23 @@ def login(request):
 
 def show_post(request, post_id):
     return HttpResponse(f"Post {post_id}")
+
+
+def show_genre(request, genre_id):
+    posts = Music.objects.filter(genre_id=genre_id)
+    genres = Genre.objects.all()
+
+    if len(posts) == 0:
+        raise Http404()
+
+    args = {
+        'title': 'Genres',
+        'menu': menu,
+        'posts': posts,
+        'genres': genres,
+        'genre_selected': genre_id
+    }
+    return render(request, 'music/index.html', context=args)
 
 
 # error 404 handler function
