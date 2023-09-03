@@ -26,6 +26,10 @@ class Music(models.Model):
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_id': self.pk})
 
+    class Meta:
+        verbose_name = 'Musician'
+        ordering = ['time_create', 'title']
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=255, db_index=True)
@@ -35,3 +39,6 @@ class Genre(models.Model):
 
     def get_absolute_url(self):
         return reverse('genre', kwargs={'genre_id': self.pk})
+
+    class Meta:
+        ordering = ['id']
