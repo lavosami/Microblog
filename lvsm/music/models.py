@@ -29,7 +29,7 @@ class Music(models.Model):
 
     class Meta:
         verbose_name = 'Musician'
-        ordering = ['time_create', 'title']
+        ordering = ['-time_create', 'title']
 
 
 class Genre(models.Model):

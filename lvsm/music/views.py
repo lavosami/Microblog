@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 
+from music.forms import NewPostForm
 from music.models import Music, Genre
 
 menu = [
@@ -8,7 +9,7 @@ menu = [
     {'title': "Create a post", 'url_path': "new_post"},
     {'title': "Feedback", 'url_path': "feedback"},
     {'title': "Sign In", 'url_path': "login"}
-    ]
+]
 
 
 # home (main) page
@@ -42,7 +43,19 @@ def music_year(request, year):
 
 
 def new_post(request):
-    return HttpResponse("New Post page")
+    if request.method == 'POST':
+        form = NewPostForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data)
+            try:
+                Music.objects.create(**form.cleaned_data)
+                return redirect('home')
+            except:
+                form.add_error(None, 'Add post is not possible')
+    else:
+        form = NewPostForm()
+
+    return render(request, 'music/new_post.html', {'form': form, 'menu': menu, 'title': 'New post'})
 
 
 def feedback(request):
