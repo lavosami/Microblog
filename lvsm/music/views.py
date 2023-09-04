@@ -14,13 +14,11 @@ menu = [
 # home (main) page
 def index(request):
     posts = Music.objects.all()
-    genres = Genre.objects.all()
 
     args = {
         'title': 'Music blog',
         'menu': menu,
         'posts': posts,
-        'genres': genres,
         'genre_selected': 0
     }
     return render(request, 'music/index.html', context=args)
@@ -61,7 +59,6 @@ def show_post(request, post_id):
 
 def show_genre(request, genre_id):
     posts = Music.objects.filter(genre_id=genre_id)
-    genres = Genre.objects.all()
 
     if len(posts) == 0:
         raise Http404()
@@ -70,7 +67,6 @@ def show_genre(request, genre_id):
         'title': 'Genres',
         'menu': menu,
         'posts': posts,
-        'genres': genres,
         'genre_selected': genre_id
     }
     return render(request, 'music/index.html', context=args)
