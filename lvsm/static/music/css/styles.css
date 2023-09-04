@@ -79,13 +79,13 @@ ul.list-articles li {
 .clear {clear: both;}
 
 .header {
-	background: #3F4137;
+	background: #92DCE5;
 	height: 60px;
 }
 
 .logo {
 	background: url('../images/logo.png') no-repeat 10px 5px;
-	width: 70px;
+	width: 60px;
 	height: 60px;
 }
 
@@ -106,11 +106,11 @@ ul.mainmenu li.logo {margin: 0;}
 ul.mainmenu li.last {float: right;}
 
 ul.mainmenu li a {
-	color: #fdc073;
+	color: #EEE5E9;
 	text-decoration: none;
 }
 ul.mainmenu li a:hover {
-	color: #FDA83D;
+	color: #D64933;
 }
 
 .panelitems {
@@ -195,15 +195,15 @@ div.button {
 	height: 40px;
 	margin: 0 20px 0 0;
 }
-.left-chapters ul li.share a.share-yt {
+.left-chapters ul li.share a.share-tg {
 	width: 100%;
 	height: 30px;
-	background: url('../images/share_yt.png') no-repeat 0 0
+	background: url('../images/share_tg.png') no-repeat 0 0
 }
-.left-chapters ul li.share a.share-yt:hover {
+.left-chapters ul li.share a.share-tg:hover {
 	width: 100%;
 	height: 30px;
-	background: url('../images/share_yt.png') no-repeat 0 -30px
+	background: url('../images/share_tg.png') no-repeat 0 -30px
 }
 
 .content {

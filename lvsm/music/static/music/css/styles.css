@@ -79,7 +79,7 @@ ul.list-articles li {
 .clear {clear: both;}
 
 .header {
-	background: #3F4137;
+	background: #92DCE5;
 	height: 60px;
 }
 
@@ -106,11 +106,11 @@ ul.mainmenu li.logo {margin: 0;}
 ul.mainmenu li.last {float: right;}
 
 ul.mainmenu li a {
-	color: #fdc073;
+	color: #EEE5E9;
 	text-decoration: none;
 }
 ul.mainmenu li a:hover {
-	color: #FDA83D;
+	color: #D64933;
 }
 
 .panelitems {
