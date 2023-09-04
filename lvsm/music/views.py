@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 
 from music.models import Music, Genre
@@ -53,8 +53,17 @@ def login(request):
     return HttpResponse("Login page")
 
 
-def show_post(request, post_id):
-    return HttpResponse(f"Post {post_id}")
+def show_post(request, post_slug):
+    post = get_object_or_404(Music, slug=post_slug)
+
+    context = {
+        'post': post,
+        'menu': menu,
+        'title': post.title,
+        'genre_selected': post.genre_id,
+    }
+
+    return render(request, 'music/post.html', context=context)
 
 
 def show_genre(request, genre_id):

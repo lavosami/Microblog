@@ -14,6 +14,6 @@ urlpatterns = [
     path('new_post/', new_post, name='new_post'),
     path('feedback/', feedback, name='feedback'),
     path('login/', login, name='login'),
-    path('post/<int:post_id>/', show_post, name='post'),
+    path('post/<slug:post_slug>/', show_post, name='post'),
     path('genre/<int:genre_id>/', show_genre, name='genre')
 ]
