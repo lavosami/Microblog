@@ -40,7 +40,7 @@ class Genre(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('genre', kwargs={'genre_id': self.pk})
+        return reverse('genre', kwargs={'genre_slug': self.slug})
 
     class Meta:
         ordering = ['id']

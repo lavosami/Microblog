@@ -76,7 +76,8 @@ def show_post(request, post_slug):
     return render(request, 'music/post.html', context=context)
 
 
-def show_genre(request, genre_id):
+def show_genre(request, genre_slug):
+    genre_id = Genre.objects.get(slug=genre_slug).id
     posts = Music.objects.filter(genre_id=genre_id)
 
     if len(posts) == 0:

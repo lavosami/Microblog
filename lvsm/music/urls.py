@@ -15,5 +15,5 @@ urlpatterns = [
     path('feedback/', feedback, name='feedback'),
     path('login/', login, name='login'),
     path('post/<slug:post_slug>/', show_post, name='post'),
-    path('genre/<int:genre_id>/', show_genre, name='genre')
+    path('genre/<slug:genre_slug>/', show_genre, name='genre')
 ]
