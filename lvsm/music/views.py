@@ -44,14 +44,11 @@ def music_year(request, year):
 
 def new_post(request):
     if request.method == 'POST':
-        form = NewPostForm(request.POST)
+        form = NewPostForm(request.POST, request.FILES)
         if form.is_valid():
             # print(form.cleaned_data)
-            try:
-                Music.objects.create(**form.cleaned_data)
-                return redirect('home')
-            except:
-                form.add_error(None, 'Add post is not possible')
+            form.save()
+            return redirect('home')
     else:
         form = NewPostForm()
 
