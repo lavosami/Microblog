@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 
 from music.forms import NewPostForm
 from music.models import Music, Genre
@@ -12,17 +14,20 @@ menu = [
 ]
 
 
-# home (main) page
-def index(request):
-    posts = Music.objects.all()
+class MusicHome(ListView):
+    model = Music
+    template_name = 'music/index.html'
+    context_object_name = 'posts'
 
-    args = {
-        'title': 'Music blog',
-        'menu': menu,
-        'posts': posts,
-        'genre_selected': 0
-    }
-    return render(request, 'music/index.html', context=args)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Music blog'
+        context['genre_selected'] = 0
+        return context
+
+    def get_queryset(self):
+        return Music.objects.filter(is_published=True)
 
 
 def about(request):
@@ -42,17 +47,16 @@ def music_year(request, year):
     return HttpResponse(f"<h1>Era of music</h1><p>{year}</p>")
 
 
-def new_post(request):
-    if request.method == 'POST':
-        form = NewPostForm(request.POST, request.FILES)
-        if form.is_valid():
-            # print(form.cleaned_data)
-            form.save()
-            return redirect('home')
-    else:
-        form = NewPostForm()
+class NewPost(CreateView):
+    form_class = NewPostForm
+    template_name = 'music/new_post.html'
+    success_url = reverse_lazy('home')
 
-    return render(request, 'music/new_post.html', {'form': form, 'menu': menu, 'title': 'New post'})
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'New post'
+        return context
 
 
 def feedback(request):
@@ -63,35 +67,35 @@ def login(request):
     return HttpResponse("Login page")
 
 
-def show_post(request, post_slug):
-    post = get_object_or_404(Music, slug=post_slug)
+class ShowPost(DetailView):
+    model = Music
+    template_name = 'music/post.html'
+    slug_url_kwarg = 'post_slug'
+    context_object_name = 'post'
 
-    context = {
-        'post': post,
-        'menu': menu,
-        'title': post.title,
-        'genre_selected': post.genre_id,
-    }
-
-    return render(request, 'music/post.html', context=context)
-
-
-def show_genre(request, genre_slug):
-    genre_id = Genre.objects.get(slug=genre_slug).id
-    posts = Music.objects.filter(genre_id=genre_id)
-
-    if len(posts) == 0:
-        raise Http404()
-
-    args = {
-        'title': 'Genres',
-        'menu': menu,
-        'posts': posts,
-        'genre_selected': genre_id
-    }
-    return render(request, 'music/index.html', context=args)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = context['post']
+        return context
 
 
-# error 404 handler function
+class MusicGenre(ListView):
+    model = Music
+    template_name = 'music/index.html'
+    context_object_name = 'posts'
+    allow_empty = False
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = str(context['posts'][0].genre)
+        context['genre_selected'] = context['posts'][0].genre_id
+        return context
+
+    def get_queryset(self):
+        return Music.objects.filter(genre__slug=self.kwargs['genre_slug'], is_published=True)
+
+
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1>Something went wrong, try again later</h1>")
