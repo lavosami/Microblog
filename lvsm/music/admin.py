@@ -19,5 +19,12 @@ class GenreAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'photo', 'music_id')
+    list_display_links = ('music_id', )
+    search_fields = ('music_id',)
+
+
 admin.site.register(Music, MusicAdmin)
 admin.site.register(Genre, GenreAdmin)
+admin.site.register(Image, ImageAdmin)

@@ -97,5 +97,9 @@ class MusicGenre(ListView):
         return Music.objects.filter(genre__slug=self.kwargs['genre_slug'], is_published=True)
 
 
+# def show_photos(request, post_id):
+#
+
+
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1>Something went wrong, try again later</h1>")

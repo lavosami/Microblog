@@ -44,3 +44,11 @@ class Genre(models.Model):
 
     class Meta:
         ordering = ['id']
+
+
+class Image(models.Model):
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
+    music = models.ForeignKey('Music', on_delete=models.PROTECT)
+
+    class Meta:
+        ordering = ['music']
