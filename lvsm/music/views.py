@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
 from music.forms import NewPostForm
-from music.models import Music, Genre
+from music.models import *
 
 menu = [
     {'title': "About a site", 'url_path': "about"},
@@ -76,7 +76,8 @@ class ShowPost(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
-        context['title'] = context['post']
+        context['title'] = context['post'].title
+
         return context
 
 
@@ -95,10 +96,6 @@ class MusicGenre(ListView):
 
     def get_queryset(self):
         return Music.objects.filter(genre__slug=self.kwargs['genre_slug'], is_published=True)
-
-
-# def show_photos(request, post_id):
-#
 
 
 def page_not_found(request, exception):

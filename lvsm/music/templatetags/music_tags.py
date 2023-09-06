@@ -19,3 +19,9 @@ def show_genres(sort=None, genre_selected=0):
     else:
         genre = Genre.objects.order_by(sort)
     return {"genre": genre, "genre_selected": genre_selected}
+
+
+@register.inclusion_tag("music/slider_photo.html")
+def show_photos(music_id):
+    photos = Image.objects.filter(music_id=music_id)
+    return {"photos": photos}

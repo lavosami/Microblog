@@ -33,13 +33,20 @@ img.img-article-left.thumb {
 	height: auto;
 }
 
+img.img-article-left-mo {
+	max-width: 600px;
+	max-height: 600px;
+	float: left;
+	padding: 0 10px 10px 0;
+}
+
 p.link-read-post {
 	text-align: right;
 }
 p.link-read-post a {
 	padding: 10px;
 	min-width: 100px;
-	background: #333671;
+	background: #899E8B;
 	color: #fff;
 	text-decoration: none;
 }
@@ -79,7 +86,7 @@ ul.list-articles li {
 .clear {clear: both;}
 
 .header {
-	background: #92DCE5;
+	background: #899E8B;
 	height: 60px;
 }
 
@@ -106,7 +113,7 @@ ul.mainmenu li.logo {margin: 0;}
 ul.mainmenu li.last {float: right;}
 
 ul.mainmenu li a {
-	color: #EEE5E9;
+	color: #FFF;
 	text-decoration: none;
 }
 ul.mainmenu li a:hover {

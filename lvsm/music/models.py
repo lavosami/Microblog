@@ -50,5 +50,8 @@ class Image(models.Model):
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
     music = models.ForeignKey('Music', on_delete=models.PROTECT)
 
+    def get_absolute_url(self):
+        return reverse('photo', kwargs={'photo_pk': self.pk})
+
     class Meta:
-        ordering = ['music']
+        ordering = ['music_id']
