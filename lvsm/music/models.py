@@ -46,9 +46,13 @@ class Genre(models.Model):
         ordering = ['id']
 
 
+def upload_image_to(instance, filename):
+    return f'{instance.music_id}/images/{filename}'
+
+
 class Image(models.Model):
-    photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
     music = models.ForeignKey('Music', on_delete=models.PROTECT)
+    photo = models.ImageField(upload_to=upload_image_to)
 
     def get_absolute_url(self):
         return reverse('photo', kwargs={'photo_pk': self.pk})
