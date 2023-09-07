@@ -1,15 +1,12 @@
-<!--{% for ph in photos %}-->
-<!--    <p><img class="img-article-left-mo" src="{{ph.photo.url}}"></p>-->
-<!--{% endfor %}-->
-
-
 <section class="container">
   <div class="slider-wrapper">
     <div class="slider">
       {% for ph in photos %}
-        <img id="{{ph.pk}}" src="{{ph.photo.url}}">
+        <img id="{{forloop.counter0}}" src="{{ph.photo.url}}">
       {% endfor %}
     </div>
+    <button class="prev-button">&lt;</button>
+    <button class="next-button">&gt;</button>
     <div class="slider-nav">
       {% for ph in photos %}
         <a href="#{{ph.pk}}"></a>
@@ -17,3 +14,56 @@
     </div>
   </div>
 </section>
+<script>
+const slider = document.querySelector('.slider');
+const images = document.querySelectorAll('.slider img');
+const navLinks = document.querySelectorAll('.slider-nav a');
+const prevButton = document.querySelector('.prev-button');
+const nextButton = document.querySelector('.next-button');
+
+let currentIndex = 0;
+
+function showImage(index) {
+    if (index < 0) {
+        currentIndex = images.length - 1;
+    } else if (index >= images.length) {
+        currentIndex = 0;
+    }
+
+    const translateX = -currentIndex * 100;
+    slider.style.transform = `translateX(${translateX}%)`;
+
+    navLinks.forEach((link, i) => {
+        if (i === currentIndex) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
+function slideTo(index) {
+    currentIndex = index;
+    showImage(currentIndex);
+}
+
+navLinks.forEach((link, index) => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        slideTo(index);
+    });
+});
+
+prevButton.addEventListener('click', () => {
+    currentIndex--;
+    showImage(currentIndex);
+});
+
+nextButton.addEventListener('click', () => {
+    currentIndex++;
+    showImage(currentIndex);
+});
+
+// Инициализация слайдера
+showImage(currentIndex);
+</script>

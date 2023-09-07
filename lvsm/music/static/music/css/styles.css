@@ -409,22 +409,33 @@ ul.lang-list li a:hover {color: #fdc073;}
     position: relative;
     max-width: 600px;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 .slider {
     display: flex;
-    aspect-ration: 16 / 9;
-    overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
     border-radius: 0.5rem;
+    transition: transform 0.3s ease-in-out;
+    white-space: nowrap;
 }
 
 .slider img {
     flex: 1 0 100%;
     scroll-snap-align: start;
     object-fit: cover;
+    flex: 0 0 auto;
+    opacity: 1;
+}
+
+.slider img:last-child {
+    margin-right: 0;
+}
+
+.slider img.active {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .slider-nav {
@@ -448,4 +459,27 @@ ul.lang-list li a:hover {color: #fdc073;}
 
 .slider-nav a:hover {
     opacity: 1;
+}
+
+.prev-button, .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.prev-button {
+    left: 0;
+}
+
+.next-button {
+    right: 0;
+}
+
+h1.artist-name {
+    text-align:center;
 }
