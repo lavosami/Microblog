@@ -1,3 +1,19 @@
-{% for ph in photos %}
-    <p><img class="img-article-left-mo" src="{{ph.photo.url}}"></p>
-{% endfor %}
+<!--{% for ph in photos %}-->
+<!--    <p><img class="img-article-left-mo" src="{{ph.photo.url}}"></p>-->
+<!--{% endfor %}-->
+
+
+<section class="container">
+  <div class="slider-wrapper">
+    <div class="slider">
+      {% for ph in photos %}
+        <img id="{{ph.pk}}" src="{{ph.photo.url}}">
+      {% endfor %}
+    </div>
+    <div class="slider-nav">
+      {% for ph in photos %}
+        <a href="#{{ph.pk}}"></a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
