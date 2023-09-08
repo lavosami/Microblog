@@ -42,7 +42,15 @@
 		{% else %}
 			<li><a href="{% url 'home' %}">All genres</a></li>
 		{% endif %}
-		{% show_genres 'name' genre_selected %}
+		{% for g in genres %}
+		{% if g.music__count > 0 %}
+			{% if g.pk == genre_selected %}
+				<li class="selected">{{g.name}}</li>
+			{% else %}
+				<li><a href="{{ g.get_absolute_url }}">{{g.name}}</a></li>
+			{% endif %}
+		{% endif %}
+		{% endfor %}
 		<li class="share">
 		<p>Our telegram</p>
 		<a class="share-tg" href="https://telegram.org/lavosami" target="_blank" rel="nofollow"></a>
