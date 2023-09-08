@@ -22,6 +22,7 @@ class MusicHome(DataMixin, ListView):
 
 
 class AboutPage(DataMixin, ListView):
+    paginate_by = 10
     model = Music
     template_name = 'music/about.html'
 
@@ -45,6 +46,7 @@ class NewPost(LoginRequiredMixin, DataMixin, CreateView):
 
 
 class FeedbackPage(DataMixin, ListView):
+    paginate_by = 10
     model = Music
     template_name = 'music/feedback.html'
 

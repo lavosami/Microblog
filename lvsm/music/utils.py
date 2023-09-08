@@ -6,11 +6,12 @@ menu = [
     {'title': "About a site", 'url_path': "about"},
     {'title': "Create a post", 'url_path': "new_post"},
     {'title': "Feedback", 'url_path': "feedback"},
-    {'title': "Sign In", 'url_path': "login"}
 ]
 
 
 class DataMixin:
+    paginate_by = 3
+
     def get_user_context(self, **kwargs):
         context = kwargs
         genres = Genre.objects.annotate(Count('music'))

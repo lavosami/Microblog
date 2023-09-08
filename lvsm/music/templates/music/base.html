@@ -20,13 +20,12 @@
 		<div class="header">
 			<ul id="mainmenu" class="mainmenu">
 			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
-{% for m in menu %}
-	{% if not forloop.last %}
-			<li><a href="{% url m.url_path %}">{{m.title}}</a></li>
-	{% else %}
-			<li class="last"><a href="{% url m.url_path %}">{{m.title}}</a></li>
-	{% endif %}
-{% endfor %}
+
+			{% for m in menu %}
+				<li><a href="{% url m.url_path %}">{{m.title}}</a></li>
+			{% endfor %}
+
+				<a href="{% url 'register' %}">Sign up</a> | <a href="{% url 'login' %}">Sign in</a>
 			</ul>
 			<div class="clear"></div>
 		</div>
@@ -37,20 +36,23 @@
 <tr>
 	<td valign="top" class="left-chapters">
 	<ul id="leftchapters">
+
 		{% if genre_selected == 0 %}
 			<li class="selected">All genres</li>
 		{% else %}
 			<li><a href="{% url 'home' %}">All genres</a></li>
 		{% endif %}
+
 		{% for g in genres %}
-		{% if g.music__count > 0 %}
-			{% if g.pk == genre_selected %}
-				<li class="selected">{{g.name}}</li>
-			{% else %}
-				<li><a href="{{ g.get_absolute_url }}">{{g.name}}</a></li>
+			{% if g.music__count > 0 %}
+				{% if g.pk == genre_selected %}
+					<li class="selected">{{g.name}}</li>
+				{% else %}
+					<li><a href="{{ g.get_absolute_url }}">{{g.name}}</a></li>
+				{% endif %}
 			{% endif %}
-		{% endif %}
 		{% endfor %}
+
 		<li class="share">
 		<p>Our telegram</p>
 		<a class="share-tg" href="https://telegram.org/lavosami" target="_blank" rel="nofollow"></a>
@@ -63,9 +65,35 @@
 	{% endblock %}
 
 	<div class="content-text">
-{% block content %}
-{% endblock %}
+		{% block content %}
+		{% endblock %}
 	</div>
+
+	{% if page_obj.has_other_pages %}
+		<nav class="list-pages">
+			<ul>
+				{% if page_obj.has_previous %}
+					<li class="page-num">
+						<a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+					</li>
+				{% endif %}
+				{% for p in paginator.page_range %}
+				{% if page_obj.number == p %}
+					<li class="page-num page-num-selected">{{ p }}</li>
+				{% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+					<li class="page-num">
+						<a href="?page={{ p }}">{{ p }}</a>
+					</li>
+				{% endif %}
+				{% endfor %}
+				{% if page_obj.has_next %}
+					<li class="page-num">
+						<a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+					</li>
+				{% endif %}
+			</ul>
+		</nav>
+	{% endif %}
 
 </td></tr></table>
 </td></tr>
