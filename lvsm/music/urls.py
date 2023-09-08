@@ -14,6 +14,7 @@ urlpatterns = [
     path('about/', AboutPage.as_view(), name='about'),
     path('new_post/', NewPost.as_view(), name='new_post'),
     path('feedback/', FeedbackPage.as_view(), name='feedback'),
+    path('register/', RegisterUser.as_view(), name='register'),
     path('login/', login, name='login'),
     path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
     path('genre/<slug:genre_slug>/', MusicGenre.as_view(), name='genre')

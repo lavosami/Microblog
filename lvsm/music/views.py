@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from music.forms import NewPostForm
+from music.forms import NewPostForm, RegisterUserForm
 from music.utils import *
 
 
@@ -90,3 +90,14 @@ class MusicGenre(DataMixin, ListView):
 
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1>Something went wrong, try again later</h1>")
+
+
+class RegisterUser(DataMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'music/register.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Sign Up")
+        return dict(list(context.items()) + list(c_def.items()))
