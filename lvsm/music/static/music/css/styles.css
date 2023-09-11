@@ -108,6 +108,7 @@ ul.mainmenu {
 ul.mainmenu li {
 	float: left;
 	margin: 18px 40px 0 30px;
+	color: #FFF;
 }
 ul.mainmenu li.logo {margin: 0;}
 ul.mainmenu li.last {float: right;}
