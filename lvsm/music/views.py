@@ -21,7 +21,7 @@ class MusicHome(DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
-        return Music.objects.filter(is_published=True)
+        return Music.objects.filter(is_published=True).select_related('genre')
 
 
 class AboutPage(DataMixin, ListView):
@@ -79,12 +79,13 @@ class MusicGenre(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title=str(context['posts'][0].genre),
-                                      genre_selected=context['posts'][0].genre_id)
+        g = Genre.objects.get(slug=self.kwargs['genre_slug'])
+        c_def = self.get_user_context(title=str(g.name),
+                                      genre_selected=g.pk)
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
-        return Music.objects.filter(genre__slug=self.kwargs['genre_slug'], is_published=True)
+        return Music.objects.filter(genre__slug=self.kwargs['genre_slug'], is_published=True).select_related('genre')
 
 
 def page_not_found(request, exception):
