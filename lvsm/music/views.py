@@ -4,9 +4,9 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, FormView
 
-from music.forms import NewPostForm, RegisterUserForm, LoginUserForm
+from music.forms import NewPostForm, RegisterUserForm, LoginUserForm, FeedbackForm
 from music.utils import *
 
 
@@ -48,15 +48,20 @@ class NewPost(LoginRequiredMixin, DataMixin, CreateView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-class FeedbackPage(DataMixin, ListView):
-    paginate_by = 10
+class FeedbackFormView(DataMixin, FormView):
+    form_class = FeedbackForm
     model = Music
     template_name = 'music/feedback.html'
+    success_url = reverse_lazy('home')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title="Feedback")
         return dict(list(context.items()) + list(c_def.items()))
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        redirect('home')
 
 
 class ShowPost(DataMixin, DetailView):

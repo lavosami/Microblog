@@ -10,10 +10,9 @@ App's pages:
 """
 urlpatterns = [
     path('', MusicHome.as_view(), name='home'),
-    # path('', index, name='home'),
     path('about/', AboutPage.as_view(), name='about'),
     path('new_post/', NewPost.as_view(), name='new_post'),
-    path('feedback/', FeedbackPage.as_view(), name='feedback'),
+    path('feedback/', FeedbackFormView.as_view(), name='feedback'),
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),

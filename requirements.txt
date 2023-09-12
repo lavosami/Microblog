@@ -2,3 +2,4 @@ Django==4.2.4
 
 django-debug-toolbar~=4.2.0
 music~=0.7b3
+django-simple-captcha~=0.5.18
